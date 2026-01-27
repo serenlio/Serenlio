@@ -1,0 +1,66 @@
+Build a full-stack meditation and sleep app called "Serenlio".
+
+Serenlio is a calm, modern wellness app inspired by Insight Timer, but it must be original and not copy any proprietary designs, text, or assets.
+
+Tech stack:
+- Frontend: React with modern hooks
+- Styling: Tailwind CSS
+- Backend: Node.js with Express
+- Database: PostgreSQL (SQLite acceptable for local development)
+- Authentication: Email/password authentication using JWT
+- Payments: Stripe subscriptions (monthly and yearly)
+
+Core features:
+1. User authentication:
+   - Sign up, log in, log out
+   - Secure password hashing
+2. Home screen:
+   - Daily recommended meditation
+   - Featured teachers
+   - Popular and trending sessions
+3. Meditation library:
+   - Categories: Meditation, Sleep, Breathwork, Music
+   - Filter by duration (5, 10, 20, 30+ minutes)
+   - Search by title or teacher
+4. Meditation player:
+   - Audio playback controls (play, pause, scrub)
+   - Session timer
+   - Calm background visuals
+5. Sleep content:
+   - Sleep stories
+   - Ambient sounds (rain, ocean, white noise)
+6. Teachers:
+   - Teacher profile pages
+   - List of sessions per teacher
+7. Favorites:
+   - Users can favorite sessions
+8. Progress tracking:
+   - Daily streaks
+   - Total minutes meditated
+9. Subscriptions:
+   - Free tier with limited content
+   - Premium tier unlocking full library
+   - Stripe checkout integration
+   - Stripe webhook handling
+10. Admin dashboard:
+    - Upload audio files
+    - Create, edit, and delete sessions
+    - Manage categories and teachers
+
+Design requirements:
+- Minimal, calm, premium aesthetic
+- Soft gradients, neutral tones, lots of white space
+- Mobile-first responsive layout
+- Smooth transitions and subtle animations
+
+Other requirements:
+- Seed the database with example teachers and sessions
+- Use placeholder audio files
+- Provide clear instructions to run locally
+- Include example environment variables
+- Organize the project for easy future deployment
+
+Deliverables:
+- Complete working codebase
+- README with setup instructions
+- Clearly commented, clean, production-ready code
