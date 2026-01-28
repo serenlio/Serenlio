@@ -79,10 +79,10 @@ export default function Home() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="mb-8">
           <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-2">
-            {user ? `Welcome back, ${user.name}` : "Find your calm"}
+            {user ? `Welcome back, ${user.name}` : "Pure ambient calm"}
           </h1>
           <p className="text-muted-foreground">
-            Start your mindfulness journey today
+            Voice-free meditation and sleep
           </p>
         </div>
 
@@ -100,13 +100,13 @@ export default function Home() {
             <CardContent className="p-6">
               <div className="flex items-center gap-2 mb-4">
                 <Flame className="w-5 h-5 text-primary" />
-                <span className="text-sm font-medium text-primary">Today's Recommendation</span>
+                <span className="text-sm font-medium text-primary">Daily Selection</span>
               </div>
               <h2 className="text-xl md:text-2xl font-semibold text-foreground mb-2">
                 {dailySession.title}
               </h2>
               <p className="text-muted-foreground mb-1">
-                {dailySession.teacher?.name}
+                {dailySession.teacher?.name ? `Curated by ${dailySession.teacher.name}` : "Curated Audio"}
               </p>
               <div className="flex items-center gap-4 text-sm text-muted-foreground mb-4">
                 <span className="flex items-center gap-1">
@@ -118,7 +118,7 @@ export default function Home() {
               <Link href={`/session/${dailySession.id}`}>
                 <Button data-testid="button-start-daily">
                   <Play className="w-4 h-4 mr-2" />
-                  Start Session
+                  Listen Now
                 </Button>
               </Link>
             </CardContent>

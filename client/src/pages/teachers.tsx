@@ -57,10 +57,10 @@ export default function Teachers() {
       <div className="max-w-4xl mx-auto px-4 py-8">
         <div className="mb-6">
           <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-2">
-            Our Teachers
+            Audio Curators
           </h1>
           <p className="text-muted-foreground">
-            Learn from experienced meditation and wellness guides
+            Ambient soundscapes from experienced wellness creators
           </p>
         </div>
 

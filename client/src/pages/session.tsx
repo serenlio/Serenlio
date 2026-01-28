@@ -223,7 +223,7 @@ export default function Session() {
                   <Link href={`/teacher/${session.teacher.id}`}>
                     <span className="text-muted-foreground hover:text-foreground flex items-center gap-1" data-testid="link-teacher">
                       <User className="w-4 h-4" />
-                      {session.teacher.name}
+                      Curated by {session.teacher.name}
                     </span>
                   </Link>
                 )}
@@ -252,6 +252,13 @@ export default function Session() {
               </span>
               <span>{session.playCount || 0} plays</span>
             </div>
+
+            {session.category === "breathwork" && (
+              <div className="bg-primary/5 rounded-lg p-4 mb-6 text-center border border-primary/10">
+                <p className="text-sm font-medium text-primary mb-1">Breathing Pattern</p>
+                <p className="text-lg font-semibold">Inhale 4 · Hold 4 · Exhale 4 · Hold 4</p>
+              </div>
+            )}
 
             <div className="bg-muted/50 rounded-lg p-6 mb-6">
               <div className="flex items-center justify-center gap-6 mb-6">

@@ -119,10 +119,10 @@ export default function Library() {
       <div className="max-w-6xl mx-auto px-4 py-8">
         <div className="mb-6">
           <h1 className="text-2xl md:text-3xl font-semibold text-foreground mb-2">
-            Session Library
+            Audio Library
           </h1>
           <p className="text-muted-foreground">
-            Find the perfect session for your mood
+            Distraction-free background audio for focus and rest
           </p>
         </div>
 

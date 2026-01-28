@@ -38,35 +38,35 @@ async function seedDatabase() {
 
   const teacher1 = await storage.createTeacher({
     name: "Sarah Chen",
-    bio: "Sarah has been practicing mindfulness for over 15 years and specializes in stress reduction and sleep meditation.",
+    bio: "Sarah specializes in curating continuous ambient soundscapes for deep relaxation and distraction-free rest.",
     avatarUrl: null,
-    specialty: "Sleep & Relaxation",
+    specialty: "Ambient Soundscapes",
   });
 
   const teacher2 = await storage.createTeacher({
     name: "Marcus Williams",
-    bio: "A certified breathwork instructor with a background in yoga and holistic wellness practices.",
+    bio: "Marcus provides background sound to support self-guided breathing practices and rhythmic calm.",
     avatarUrl: null,
-    specialty: "Breathwork",
+    specialty: "Breathwork Support",
   });
 
   const teacher3 = await storage.createTeacher({
     name: "Elena Rodriguez",
-    bio: "Elena brings a gentle approach to meditation, drawing from both Eastern and Western contemplative traditions.",
+    bio: "Elena curates voice-free meditation audio designed for self-guided practice and inner focus.",
     avatarUrl: null,
-    specialty: "Guided Meditation",
+    specialty: "Pure Ambient Meditation",
   });
 
   const teacher4 = await storage.createTeacher({
     name: "James Park",
-    bio: "James creates ambient soundscapes and music designed to promote deep relaxation and focus.",
+    bio: "James creates ambient soundscapes and music-only sessions designed for focus and relaxation.",
     avatarUrl: null,
     specialty: "Ambient Music",
   });
 
   await storage.createSession({
     title: "Morning Calm",
-    description: "Start your day with this gentle 10-minute meditation designed to set a peaceful tone for the hours ahead.",
+    description: "Start your day with this gentle 10-minute ambient meditation sound designed to set a peaceful tone.",
     category: "meditation",
     duration: 10,
     audioUrl: null,
@@ -78,7 +78,7 @@ async function seedDatabase() {
 
   await storage.createSession({
     title: "Deep Sleep Journey",
-    description: "A soothing sleep story that guides you through a peaceful forest, helping you drift off naturally.",
+    description: "A soothing voice-free sleep audio experience that helps you drift off naturally through ambient nature sounds.",
     category: "sleep",
     duration: 30,
     audioUrl: null,
@@ -89,8 +89,8 @@ async function seedDatabase() {
   });
 
   await storage.createSession({
-    title: "Stress Relief Breathwork",
-    description: "Learn the 4-7-8 breathing technique to quickly calm your nervous system and reduce anxiety.",
+    title: "Rhythmic Breath Support",
+    description: "Background audio to support your self-guided breathing practice. Visual pattern: Inhale 4 · Hold 4 · Exhale 4 · Hold 4.",
     category: "breathwork",
     duration: 5,
     audioUrl: null,
@@ -126,7 +126,7 @@ async function seedDatabase() {
 
   await storage.createSession({
     title: "Evening Wind Down",
-    description: "A 20-minute meditation to help you release the day's stress and prepare for restful sleep.",
+    description: "A 20-minute calming background audio session to help you release the day's stress and prepare for rest.",
     category: "meditation",
     duration: 20,
     audioUrl: null,
@@ -138,7 +138,7 @@ async function seedDatabase() {
 
   await storage.createSession({
     title: "Focus & Clarity",
-    description: "A meditation designed to sharpen your mind and improve concentration.",
+    description: "Ambient meditation sound designed to sharpen your mind and improve concentration through distraction-free audio.",
     category: "meditation",
     duration: 15,
     audioUrl: null,
@@ -149,8 +149,8 @@ async function seedDatabase() {
   });
 
   await storage.createSession({
-    title: "Box Breathing",
-    description: "A simple yet powerful breathing technique used by athletes and professionals to stay calm under pressure.",
+    title: "Square Breath Audio",
+    description: "Background sound to support rhythmic breathing. Follow on-screen prompts for Inhale, Hold, Exhale, Hold.",
     category: "breathwork",
     duration: 10,
     audioUrl: null,
@@ -161,8 +161,8 @@ async function seedDatabase() {
   });
 
   await storage.createSession({
-    title: "Starlit Dreams",
-    description: "A gentle sleep story that takes you on a journey through the cosmos.",
+    title: "Starlit Ambience",
+    description: "Continuous ambient sound experience that takes you on a journey through the cosmos for deep sleep.",
     category: "sleep",
     duration: 25,
     audioUrl: null,
