@@ -1,0 +1,53 @@
+Update the Serenlio app so that all meditation, sleep, breathwork, and music content is explicitly voice-free and uses background audio only.
+
+Make the following changes across the entire app:
+
+1. Content descriptions:
+   - Remove all references to narration, guidance, instructor voice, teacher voice, or spoken instructions.
+   - Replace wording with terms like:
+     - “background audio”
+     - “ambient sound”
+     - “music-only”
+     - “voice-free”
+     - “distraction-free audio”
+
+2. Meditation descriptions:
+   - Change any text such as “guided meditation” or “listen to the voice” to:
+     - “calming background audio”
+     - “ambient meditation sound”
+   - Emphasize self-guided practice using sound only.
+
+3. Sleep content:
+   - Remove references to sleep stories, narration, or spoken guidance.
+   - Use descriptions like:
+     - “continuous ambient sound”
+     - “voice-free sleep audio”
+     - “designed to help you relax and fall asleep naturally”
+
+4. Breathwork sessions:
+   - Remove spoken breathing instructions from descriptions.
+   - Instead:
+     - Display breathing patterns visually or as on-screen text (e.g. “Inhale 4 · Hold 4 · Exhale 4 · Hold 4”)
+     - Describe the audio as “background sound to support breathing”
+
+5. UI labels and metadata:
+   - Remove labels such as “guided,” “narrated,” “teacher-led,” or “voice”
+   - Ensure all session metadata reflects music-only or ambient-only content
+
+6. Teacher profiles:
+   - If teacher or instructor profiles exist, either:
+     - Remove them entirely, or
+     - Update descriptions to clarify that content is “curated audio” rather than spoken instruction
+
+7. Consistency check:
+   - Ensure no part of the app implies spoken guidance if the audio contains no voice
+   - The experience should clearly feel intentional: minimal, calm, voice-free
+
+8. Positioning:
+   - Frame the experience as:
+     - “Pure ambient calm”
+     - “Voice-free meditation and sleep”
+     - “Distraction-free audio for relaxation, focus, and rest”
+
+Do not change audio playback functionality.
+Only update text, labels, descriptions, and any UI logic related to voice or guidance.
