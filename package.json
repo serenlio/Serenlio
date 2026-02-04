@@ -4,11 +4,14 @@
   "type": "module",
   "license": "MIT",
   "scripts": {
-    "dev": "NODE_ENV=development tsx server/index.ts",
-    "build": "tsx script/build.ts",
-    "start": "NODE_ENV=production node dist/index.cjs",
+    "dev": "npx tsx server/index.ts",
+    "build": "npm run fix-reusify && npm run fix-ts-interface-checker && node -e \"require('fs').rmSync('dist',{recursive:true,force:true})\" && vite build && node script/build.mjs",
+    "start": "cross-env NODE_ENV=production node dist/index.cjs",
     "check": "tsc",
-    "db:push": "drizzle-kit push"
+    "db:push": "drizzle-kit push",
+    "postinstall": "node script/fix-reusify.cjs && node script/fix-ts-interface-checker.cjs",
+    "fix-reusify": "node script/fix-reusify.cjs",
+    "fix-ts-interface-checker": "node script/fix-ts-interface-checker.cjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.10.0",
@@ -81,6 +84,8 @@
     "zustand": "^5.0.10"
   },
   "devDependencies": {
+    "cross-env": "^7.0.3",
+    "dotenv": "^16.4.5",
     "@replit/vite-plugin-cartographer": "^0.4.4",
     "@replit/vite-plugin-dev-banner": "^0.1.1",
     "@replit/vite-plugin-runtime-error-modal": "^0.0.3",

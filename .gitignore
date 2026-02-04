@@ -1,6 +1,15 @@
 node_modules
 dist
+.env
+.env.local
+.env.*
+!.env.example
 .DS_Store
 server/public
 vite.config.ts.*
 *.tar.gz
+.local
+cross-env
+node
+npm
+rest-express@1.0.0

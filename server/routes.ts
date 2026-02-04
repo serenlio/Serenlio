@@ -32,6 +32,12 @@ function authMiddleware(req: AuthRequest, res: Response, next: NextFunction) {
   }
 }
 
+function getSupabaseAudioUrl(filename: string): string | null {
+  const base = process.env.SUPABASE_AUDIO_BASE_URL;
+  if (!base) return null;
+  return base.endsWith("/") ? `${base}${filename}` : `${base}/${filename}`;
+}
+
 async function seedDatabase() {
   const existingTeachers = await storage.getTeachers();
   if (existingTeachers.length > 0) return;
@@ -45,14 +51,14 @@ async function seedDatabase() {
 
   const teacher2 = await storage.createTeacher({
     name: "Marcus Williams",
-    bio: "Marcus provides background sound to support self-guided breathing practices and rhythmic calm.",
+    bio: "Marcus provides background sound to support breathing practice and rhythmic calm.",
     avatarUrl: null,
     specialty: "Breathwork Support",
   });
 
   const teacher3 = await storage.createTeacher({
     name: "Elena Rodriguez",
-    bio: "Elena curates voice-free meditation audio designed for self-guided practice and inner focus.",
+    bio: "Elena curates ambient meditation audio for self-directed practice and inner focus.",
     avatarUrl: null,
     specialty: "Pure Ambient Meditation",
   });
@@ -66,10 +72,10 @@ async function seedDatabase() {
 
   await storage.createSession({
     title: "Morning Calm",
-    description: "Start your day with this gentle 10-minute ambient meditation sound designed to set a peaceful tone.",
+    description: "Start your day with this gentle 10-minute ambient sound designed to set a peaceful tone.",
     category: "meditation",
     duration: 10,
-    audioUrl: null,
+    audioUrl: getSupabaseAudioUrl("morning-calm.mp3"),
     imageUrl: null,
     teacherId: teacher3.id,
     isPremium: false,
@@ -78,10 +84,10 @@ async function seedDatabase() {
 
   await storage.createSession({
     title: "Deep Sleep Journey",
-    description: "A soothing voice-free sleep audio experience that helps you drift off naturally through ambient nature sounds.",
+    description: "Soothing sleep audio that helps you drift off naturally through ambient nature sounds.",
     category: "sleep",
     duration: 30,
-    audioUrl: null,
+    audioUrl: getSupabaseAudioUrl("deep-sleep-journey.mp3"),
     imageUrl: null,
     teacherId: teacher1.id,
     isPremium: false,
@@ -90,10 +96,10 @@ async function seedDatabase() {
 
   await storage.createSession({
     title: "Rhythmic Breath Support",
-    description: "Background audio to support your self-guided breathing practice. Visual pattern: Inhale 4 · Hold 4 · Exhale 4 · Hold 4.",
+    description: "Background audio to support breathing practice. On-screen pattern: Inhale 4 · Hold 4 · Exhale 4 · Hold 4.",
     category: "breathwork",
     duration: 5,
-    audioUrl: null,
+    audioUrl: getSupabaseAudioUrl("rhythmic-breath-support.mp3"),
     imageUrl: null,
     teacherId: teacher2.id,
     isPremium: false,
@@ -105,7 +111,7 @@ async function seedDatabase() {
     description: "Gentle ocean sounds to help you relax, focus, or drift off to sleep.",
     category: "music",
     duration: 20,
-    audioUrl: null,
+    audioUrl: getSupabaseAudioUrl("ocean-waves.mp3"),
     imageUrl: null,
     teacherId: teacher4.id,
     isPremium: false,
@@ -117,7 +123,7 @@ async function seedDatabase() {
     description: "Immerse yourself in the peaceful sounds of a tropical rainforest.",
     category: "music",
     duration: 30,
-    audioUrl: null,
+    audioUrl: getSupabaseAudioUrl("rainforest-ambience.mp3"),
     imageUrl: null,
     teacherId: teacher4.id,
     isPremium: true,
@@ -129,7 +135,7 @@ async function seedDatabase() {
     description: "A 20-minute calming background audio session to help you release the day's stress and prepare for rest.",
     category: "meditation",
     duration: 20,
-    audioUrl: null,
+    audioUrl: getSupabaseAudioUrl("evening-wind-down.mp3"),
     imageUrl: null,
     teacherId: teacher1.id,
     isPremium: false,
@@ -138,10 +144,10 @@ async function seedDatabase() {
 
   await storage.createSession({
     title: "Focus & Clarity",
-    description: "Ambient meditation sound designed to sharpen your mind and improve concentration through distraction-free audio.",
+    description: "Ambient sound designed to sharpen your mind and improve concentration through distraction-free audio.",
     category: "meditation",
     duration: 15,
-    audioUrl: null,
+    audioUrl: getSupabaseAudioUrl("focus-clarity.mp3"),
     imageUrl: null,
     teacherId: teacher3.id,
     isPremium: true,
@@ -150,10 +156,10 @@ async function seedDatabase() {
 
   await storage.createSession({
     title: "Square Breath Audio",
-    description: "Background sound to support rhythmic breathing. Follow on-screen prompts for Inhale, Hold, Exhale, Hold.",
+    description: "Background sound to support rhythmic breathing. On-screen pattern: Inhale, Hold, Exhale, Hold.",
     category: "breathwork",
     duration: 10,
-    audioUrl: null,
+    audioUrl: getSupabaseAudioUrl("square-breath-audio.mp3"),
     imageUrl: null,
     teacherId: teacher2.id,
     isPremium: false,
@@ -162,10 +168,10 @@ async function seedDatabase() {
 
   await storage.createSession({
     title: "Starlit Ambience",
-    description: "Continuous ambient sound experience that takes you on a journey through the cosmos for deep sleep.",
+    description: "Continuous ambient sound that takes you on a journey through the cosmos for deep sleep.",
     category: "sleep",
     duration: 25,
-    audioUrl: null,
+    audioUrl: getSupabaseAudioUrl("starlit-ambience.mp3"),
     imageUrl: null,
     teacherId: teacher1.id,
     isPremium: true,
@@ -177,7 +183,7 @@ async function seedDatabase() {
     description: "Pure white noise to mask distractions and promote deep focus or sleep.",
     category: "music",
     duration: 60,
-    audioUrl: null,
+    audioUrl: getSupabaseAudioUrl("white-noise.mp3"),
     imageUrl: null,
     teacherId: null,
     isPremium: false,
@@ -399,6 +405,11 @@ export async function registerRoutes(
 
   app.get(api.progress.stats.path, authMiddleware, async (req: AuthRequest, res) => {
     const stats = await storage.getUserStats(req.userId!);
+    res.json(stats);
+  });
+
+  app.get(api.stats.usage.path, async (_req, res) => {
+    const stats = await storage.getUsageStats();
     res.json(stats);
   });
 

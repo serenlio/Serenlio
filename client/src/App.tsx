@@ -14,6 +14,7 @@ import Teachers from "@/pages/teachers";
 import Teacher from "@/pages/teacher";
 import Favorites from "@/pages/favorites";
 import Profile from "@/pages/profile";
+import Stats from "@/pages/stats";
 import Login from "@/pages/login";
 import Register from "@/pages/register";
 import NotFound from "@/pages/not-found";
@@ -28,6 +29,7 @@ function Router() {
       <Route path="/teacher/:id" component={Teacher} />
       <Route path="/favorites" component={Favorites} />
       <Route path="/profile" component={Profile} />
+      <Route path="/stats" component={Stats} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route component={NotFound} />

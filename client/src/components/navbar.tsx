@@ -2,7 +2,7 @@ import { Link, useLocation } from "wouter";
 import { Button } from "@/components/ui/button";
 import { ThemeToggle } from "@/components/theme-toggle";
 import { useAuth } from "@/lib/auth";
-import { Home, Library, Users, Heart, User, Menu, X } from "lucide-react";
+import { Home, Library, Users, Heart, User, Menu, X, BarChart2 } from "lucide-react";
 import { useState } from "react";
 
 const navItems = [
@@ -10,6 +10,7 @@ const navItems = [
   { href: "/library", label: "Library", icon: Library },
   { href: "/teachers", label: "Teachers", icon: Users },
   { href: "/favorites", label: "Favorites", icon: Heart },
+  { href: "/stats", label: "Stats", icon: BarChart2 },
 ];
 
 export function Navbar() {

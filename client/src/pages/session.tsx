@@ -33,6 +33,7 @@ export default function Session() {
   const [currentTime, setCurrentTime] = useState(0);
   const [duration, setDuration] = useState(0);
   const intervalRef = useRef<NodeJS.Timeout | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
 
   const { data: session, isLoading } = useQuery<SessionWithTeacherResponse>({
     queryKey: [api.sessions.get.path, id],
@@ -98,6 +99,8 @@ export default function Session() {
     },
   });
 
+  const hasAudioUrl = Boolean(session?.audioUrl);
+
   useEffect(() => {
     if (session) {
       setDuration(session.duration * 60);
@@ -105,6 +108,33 @@ export default function Session() {
   }, [session]);
 
   useEffect(() => {
+    if (!session || !hasAudioUrl) return;
+    const audio = audioRef.current;
+    if (!audio) return;
+    const onLoadedMetadata = () => setDuration(audio.duration);
+    const onTimeUpdate = () => setCurrentTime(audio.currentTime);
+    const onEnded = () => {
+      setIsPlaying(false);
+      if (isAuthenticated() && session) {
+        recordProgress.mutate(session.duration);
+        toast({
+          title: "Session Complete",
+          description: `You listened for ${session.duration} minutes. Great job!`,
+        });
+      }
+    };
+    audio.addEventListener("loadedmetadata", onLoadedMetadata);
+    audio.addEventListener("timeupdate", onTimeUpdate);
+    audio.addEventListener("ended", onEnded);
+    return () => {
+      audio.removeEventListener("loadedmetadata", onLoadedMetadata);
+      audio.removeEventListener("timeupdate", onTimeUpdate);
+      audio.removeEventListener("ended", onEnded);
+    };
+  }, [session?.id, hasAudioUrl]);
+
+  useEffect(() => {
+    if (hasAudioUrl) return;
     if (isPlaying) {
       intervalRef.current = setInterval(() => {
         setCurrentTime((prev) => {
@@ -114,7 +144,7 @@ export default function Session() {
               recordProgress.mutate(session.duration);
               toast({
                 title: "Session Complete",
-                description: `You meditated for ${session.duration} minutes. Great job!`,
+                description: `You listened for ${session.duration} minutes. Great job!`,
               });
             }
             return duration;
@@ -128,11 +158,18 @@ export default function Session() {
     return () => {
       if (intervalRef.current) clearInterval(intervalRef.current);
     };
-  }, [isPlaying, duration]);
+  }, [isPlaying, duration, hasAudioUrl]);
 
   const handlePlayPause = () => {
     if (!isPlaying && currentTime === 0) {
       incrementPlay.mutate();
+    }
+    if (hasAudioUrl && audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause();
+      } else {
+        audioRef.current.play();
+      }
     }
     setIsPlaying(!isPlaying);
   };
@@ -260,12 +297,25 @@ export default function Session() {
               </div>
             )}
 
+            {hasAudioUrl && (
+              <audio
+                ref={audioRef}
+                src={session.audioUrl!}
+                onPlay={() => setIsPlaying(true)}
+                onPause={() => setIsPlaying(false)}
+                style={{ display: "none" }}
+              />
+            )}
             <div className="bg-muted/50 rounded-lg p-6 mb-6">
               <div className="flex items-center justify-center gap-6 mb-6">
                 <Button
                   variant="ghost"
                   size="icon"
-                  onClick={() => setCurrentTime(Math.max(0, currentTime - 15))}
+                  onClick={() => {
+                    const next = Math.max(0, currentTime - 15);
+                    setCurrentTime(next);
+                    if (hasAudioUrl && audioRef.current) audioRef.current.currentTime = next;
+                  }}
                   data-testid="button-rewind"
                 >
                   <SkipBack className="w-6 h-6" />
@@ -285,7 +335,11 @@ export default function Session() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  onClick={() => setCurrentTime(Math.min(duration, currentTime + 15))}
+                  onClick={() => {
+                    const next = Math.min(duration, currentTime + 15);
+                    setCurrentTime(next);
+                    if (hasAudioUrl && audioRef.current) audioRef.current.currentTime = next;
+                  }}
                   data-testid="button-forward"
                 >
                   <SkipForward className="w-6 h-6" />

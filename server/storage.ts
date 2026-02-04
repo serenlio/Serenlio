@@ -49,6 +49,7 @@ export interface IStorage {
 
   recordProgress(userId: number, sessionId: number, minutes: number): Promise<void>;
   getUserStats(userId: number): Promise<{ totalMinutes: number; currentStreak: number; sessionsCompleted: number }>;
+  getUsageStats(): Promise<{ userCount: number; sessions: { id: number; title: string; playCount: number }[] }>;
 }
 
 export class DatabaseStorage implements IStorage {
@@ -309,6 +310,18 @@ export class DatabaseStorage implements IStorage {
       totalMinutes: user?.totalMinutes || 0,
       currentStreak: user?.currentStreak || 0,
       sessionsCompleted: Number(countResult?.count) || 0,
+    };
+  }
+
+  async getUsageStats(): Promise<{ userCount: number; sessions: { id: number; title: string; playCount: number }[] }> {
+    const [userCountResult] = await db.select({ count: sql<number>`count(*)` }).from(users);
+    const sessionRows = await db
+      .select({ id: sessions.id, title: sessions.title, playCount: sessions.playCount })
+      .from(sessions)
+      .orderBy(desc(sessions.playCount));
+    return {
+      userCount: Number(userCountResult?.count) || 0,
+      sessions: sessionRows.map((s) => ({ id: s.id, title: s.title, playCount: s.playCount ?? 0 })),
     };
   }
 }

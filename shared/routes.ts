@@ -247,6 +247,18 @@ export const api = {
       },
     },
   },
+  stats: {
+    usage: {
+      method: 'GET' as const,
+      path: '/api/stats/usage',
+      responses: {
+        200: z.object({
+          userCount: z.number(),
+          sessions: z.array(z.object({ id: z.number(), title: z.string(), playCount: z.number() })),
+        }),
+      },
+    },
+  },
   home: {
     daily: {
       method: 'GET' as const,
