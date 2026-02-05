@@ -17,7 +17,9 @@ export function serveStatic(app: Express) {
 
   // SPA fallback: serve index.html with explicit Content-Type (prevents download on Vercel)
   app.get("*", (_req, res) => {
+    const htmlPath = path.join(distPath, "index.html");
     res.setHeader("Content-Type", "text/html; charset=utf-8");
-    res.sendFile(path.join(distPath, "index.html"));
+    res.setHeader("Cache-Control", "no-cache");
+    res.send(fs.readFileSync(htmlPath, "utf-8"));
   });
 }
